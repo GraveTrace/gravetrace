@@ -1,0 +1,23 @@
+.homepage {
+    background-color: var(--primary);
+    height: 100vh;
+
+    &__content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+
+        &__col1 {
+            width: 40vw;
+            height: 100vh;
+            background: linear-gradient(180deg, #D9D8DD 12.51%, rgba(217, 216, 221, 0.3) 28.13%, rgba(217, 216, 221, 0) 43.75%), url("/src/assets/cementary_hp.png");
+        }
+
+        &__col1,
+        &__col2 {
+            padding: 50px;
+            border: 1px solid black;
+        }
+    }
+}
