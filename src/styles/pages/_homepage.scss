@@ -1,23 +1,64 @@
 .homepage {
-    background-color: var(--primary);
+    background-color: var(--background-homepage);
     height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+
+    &__navbar {
+        width: 100vw;
+        height:13vh;
+        display:flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        z-index:1;
+
+        &__logo {
+            padding-left: 30px;
+        }
+
+        &__buttons {
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            padding-right: 30px;
+        }
+    }
 
     &__content {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        justify-content: center;
+        width:100vw;
+        height: 100vh;
+        justify-content: left;
 
-        &__col1 {
-            width: 40vw;
-            height: 100vh;
-            background: linear-gradient(180deg, #D9D8DD 12.51%, rgba(217, 216, 221, 0.3) 28.13%, rgba(217, 216, 221, 0) 43.75%), url("/src/assets/cementary_hp.png");
+        &__col1 img{
+            height:100%; 
         }
 
-        &__col1,
-        &__col2 {
-            padding: 50px;
-            border: 1px solid black;
+        &__col2{
+            padding:8% 20%;
+            justify-content: center;
+            align-items: center;
+
+            h1{
+                text-align:center;
+                font-size: var(--h1);
+            }
+
+            h2{
+                font-size: var(--h2);
+                font-weight: 400;
+            }
+        }
+
+        &__images{
+            display:flex;
+            flex-direction: row;
+            justify-content: center;
+            gap:30px;
         }
     }
 }
