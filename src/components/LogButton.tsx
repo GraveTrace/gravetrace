@@ -1,3 +1,3 @@
 export default function LogButton(props: any) {
-  return <div>{props.text}</div>;
+  return (<button className="logbutton">{props.text}</button>);
 }
