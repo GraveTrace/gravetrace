@@ -1,4 +1,5 @@
 import { useFormik } from 'formik';
+import { Link } from "react-router-dom";
 import * as Yup from 'yup';
 
 export default function LoginField() {
@@ -19,7 +20,8 @@ export default function LoginField() {
 
     return (
         <form onSubmit={formik.handleSubmit}>
-            <div>
+            <div className="login__form__title">Panel logowania</div>
+            <div className="form__elem">
                 <label htmlFor="login">Login</label>
                 <input
                     id="login"
@@ -30,11 +32,11 @@ export default function LoginField() {
                     value={formik.values.login}
                 />
                 {formik.touched.login && formik.errors.login ? (
-                    <div>{formik.errors.login}</div>
+                    <div className="formik-error">{formik.errors.login}</div>
                 ) : null}
             </div>
 
-            <div>
+            <div className="form__elem">
                 <label htmlFor="password">Hasło</label>
                 <input
                     id="password"
@@ -45,11 +47,13 @@ export default function LoginField() {
                     value={formik.values.password}
                 />
                 {formik.touched.password && formik.errors.password ? (
-                    <div>{formik.errors.password}</div>
+                    <div className="formik-error">{formik.errors.password}</div>
                 ) : null}
             </div>
-
-            <button type="submit">Zaloguj się</button>
+            <div className="form__submit">
+                <button type="submit">Zaloguj się</button>
+                <div>Nie masz konta? <Link to="/register" className="link">Zarejestruj się</Link></div>
+            </div>        
         </form>
     );
 }
