@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -18,7 +19,14 @@ export default function DeadField() {
             dateofdeath: Yup.date().required('Niepoprawna data')
         }),
         onSubmit: values => {
-            console.log(values);
+            axios.post(import.meta.env.VITE_API_URL_DIED_POST, {
+                "firstName": values.firstname,
+                "lastName": values.lastname,
+                "description": values.description,
+                "bornDate": values.dateofbirth,
+                "diedDate": values.dateofdeath,
+                "candleCount": 0
+            }).catch((error) => console.log(error.response.data))
             // redirect to new user created
         }
     });
