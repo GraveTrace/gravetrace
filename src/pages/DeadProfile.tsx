@@ -1,3 +1,7 @@
+
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import axios  from "axios";
 import { dehydrate, useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import logo from "../assets/gravetracelogo.svg";
@@ -19,12 +23,23 @@ export default function DeadProfile() {
         return response.json();
     }
 
-    const { data: dead, isLoading, isError } = useQuery({
+    async function getDeadPersonPosts() {
+        const posts = await axios
+            .get(import.meta.env.VITE_API_URL_DIED_GETPOSTS + deadId + "/posts");
+        return posts.data;
+    }
+
+    const { data: dead, isLoading: loadDead, isError } = useQuery({
         queryKey: ["users", deadId],
         queryFn: () => getDeadPerson(deadId)
     });
 
-    if (isLoading) return 'Loading...';
+    const { data: posts, isLoading: loadPosts} = useQuery({
+        queryKey: ["posts"],
+        queryFn: () => getDeadPersonPosts()
+    });
+    console.log(posts)
+    if (loadDead || loadPosts) return 'Loading...';
     if (isError) { isError }
     
     function ConvertDate(date: string){

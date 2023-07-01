@@ -28,7 +28,7 @@ export default function UserProfile() {
 
 
 
-    if (loadUser && loadObservators) return "Loading...";
+    if (loadUser || loadObservators) return "Loading...";
 
     console.log(observators)
     console.log(user)
