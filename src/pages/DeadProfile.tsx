@@ -1,6 +1,3 @@
-
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
 import axios  from "axios";
 import { dehydrate, useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -13,6 +10,7 @@ import { useState } from "react";
 
 export default function DeadProfile() {
     const [postShown,setPostShown] = useState(false);
+    //const [candleCount,setCandleCount] = useState(0);
 
     const params = useParams();
     const deadId = params.deadId;
@@ -54,6 +52,13 @@ export default function DeadProfile() {
         setPostShown(current => !current)
         console.log(postShown)
     }
+    //console.log(dead.candleCount)
+    /*async function incrementCandleCount(){
+        //setCandleCount(candleCount+1);
+        const candles = await axios
+            .patch(import.meta.env.VITE_API_URL_DIED_CANDLECOUNT, dead.id);
+        return candles.data;
+    }*/
 
     return (       
         <>
@@ -81,7 +86,7 @@ export default function DeadProfile() {
                             </div>
                     </div>
                     <div className="buriedpanel__buriedinfo__buttons">
-                            <button className="addcandle deadbtn">zostaw świeczkę</button>
+                            <button className="addcandle deadbtn" /*</div>onClick={incrementCandleCount}*/>zostaw świeczkę</button>
                             <button className="follow deadbtn">obserwuj</button>
                     </div>
                 </div>
@@ -95,6 +100,17 @@ export default function DeadProfile() {
                         </div>
                     </div>
                     {postShown && <AddPost/>}
+                    <div className="postslist">
+                        <div className="post">
+                            <div className="posttitle">
+                                <div>{posts[0].username}</div>
+                                <div className="postlastname">{posts[0].lastname}</div>
+                            </div>
+                            <div className="postcontent">
+                                {posts[0].content}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
