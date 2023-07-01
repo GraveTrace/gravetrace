@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import CreateDeadProfile from "./pages/CreateDeadProfile";
 import DeadProfile from "./pages/DeadProfile";
+import UserProfile from "./pages/UserProfile";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/create" element={<CreateDeadProfile />} />
           <Route path="/buried/" element={<Navigate to="/" />} />
           <Route path="/buried/:deadId" element={<DeadProfile />} />
+          <Route path="/profile" element={<UserProfile />} />
         </Routes>
       </Router>
     </QueryClientProvider>
