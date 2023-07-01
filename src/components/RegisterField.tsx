@@ -85,7 +85,7 @@ export default function RegisterField() {
                 ) : null}
             </div>
             <div className="form__submit">        
-                <button type="submit">Zaloguj się</button>
+                <button type="submit">Zarejestruj się</button>
                 <div>Masz już konto? <Link to="/login" className="link">Zaloguj się</Link></div>
             </div>
         </form>
