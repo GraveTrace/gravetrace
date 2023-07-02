@@ -1,19 +1,54 @@
+import axios, { AxiosError } from 'axios';
 import { useFormik } from 'formik';
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { useSignIn } from 'react-auth-kit';
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from 'yup';
 
+interface LoginValues {
+    email: string;
+    password: string;
+}
+
 export default function LoginField() {
+    const signIn = useSignIn();
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+
     const formik = useFormik({
         initialValues: {
-            login: '',
+            email: '',
             password: ''
         },
         validationSchema: Yup.object({
-            login: Yup.string().required('Wprowadź adres e-mail'),
+            email: Yup.string().required('Wprowadź adres e-mail'),
             password: Yup.string().required('Wprowadź hasło')
         }),
-        onSubmit: values => {
+        onSubmit: async (values: LoginValues) => {
             console.log(values);
+
+            try {
+                const response = await axios.post(
+                    "http://projekt.kolodynsky.babia-gora.pl/authentication_token",
+                    values
+                );
+                console.log(response.data.token);
+                signIn({
+                    token: response.data.token,
+                    expiresIn: 3600,
+                    tokenType: "Bearer",
+                    authState: { email: values.email }
+                })
+                navigate('/profile');
+
+
+
+            } catch (error) {
+                if (error && error instanceof AxiosError)
+                    setError(error.response?.data.message);
+
+                console.log("Error: " + error)
+            }
             // redirect to user profile
         }
     });
@@ -22,17 +57,17 @@ export default function LoginField() {
         <form onSubmit={formik.handleSubmit}>
             <div className="login__form__title">Panel logowania</div>
             <div className="form__elem">
-                <label htmlFor="login">Login</label>
+                <label htmlFor="email">Login</label>
                 <input
-                    id="login"
-                    name="login"
+                    id="email"
+                    name="email"
                     type="text"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.login}
+                    value={formik.values.email}
                 />
-                {formik.touched.login && formik.errors.login ? (
-                    <div className="formik-error">{formik.errors.login}</div>
+                {formik.touched.email && formik.errors.email ? (
+                    <div className="formik-error">{formik.errors.email}</div>
                 ) : null}
             </div>
 
@@ -53,7 +88,7 @@ export default function LoginField() {
             <div className="form__submit">
                 <button type="submit">Zaloguj się</button>
                 <div>Nie masz konta? <Link to="/register" className="link">Zarejestruj się</Link></div>
-            </div>        
+            </div>
         </form>
     );
 }
