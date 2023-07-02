@@ -62,9 +62,13 @@ export default function UserProfile() {
                 <div className="observatorpanel">
                     <div className="observatorpanel__title">Obserwowani</div>
                     <div className="observatorpanel__content">
-                        <div className="observatorphoto"><img src={avatar} /></div>
-                        <div className="firstname">{observators[0].firstName}</div>
-                        <div className="lastname">{observators[0].lastName}</div>
+                        <Link to="/buried/40" className="observatorpanel__content__link">
+                            <div className="observatorpanel__content__row">
+                                <div className="observatorphoto"><img src={avatar} /></div>
+                                <div className="firstname">{observators[0].firstName}</div>
+                                <div className="lastname">{observators[0].lastName}</div>
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </div>

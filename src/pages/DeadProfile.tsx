@@ -1,5 +1,5 @@
-import axios  from "axios";
-import { dehydrate, useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import logo from "../assets/gravetracelogo.svg";
 import candle from "../assets/candle.svg";
@@ -9,7 +9,7 @@ import AddPost from "../components/AddPost.tsx"
 import { useState } from "react";
 
 export default function DeadProfile() {
-    const [postShown,setPostShown] = useState(false);
+    const [postShown, setPostShown] = useState(false);
     //const [candleCount,setCandleCount] = useState(0);
 
     const params = useParams();
@@ -32,23 +32,23 @@ export default function DeadProfile() {
         queryFn: () => getDeadPerson(deadId)
     });
 
-    const { data: posts, isLoading: loadPosts} = useQuery({
+    const { data: posts, isLoading: loadPosts } = useQuery({
         queryKey: ["posts"],
         queryFn: () => getDeadPersonPosts()
     });
     console.log(posts)
     if (loadDead || loadPosts) return 'Loading...';
     if (isError) { isError }
-    
-    function ConvertDate(date: string){
+
+    function ConvertDate(date: string) {
         const formateddate = date.split("T")[0].split("-")
         const day = formateddate[2]
         const month = formateddate[1]
         const year = formateddate[0]
-        return day+"/"+month+"/"+year
+        return day + "/" + month + "/" + year
     }
 
-    function clickAddPost(){
+    function clickAddPost() {
         setPostShown(current => !current)
         console.log(postShown)
     }
@@ -60,17 +60,17 @@ export default function DeadProfile() {
         return candles.data;
     }*/
 
-    return (       
+    return (
         <>
-        <div className="buried-background">
-            <div className="navbar">
-                <div className="navbar__logo">
-                    <Link to="/"><img src={logo} alt="GraveTrace" /></Link>
+            <div className="buried-background">
+                <div className="navbar">
+                    <div className="navbar__logo">
+                        <Link to="/"><img src={logo} alt="GraveTrace" /></Link>
+                    </div>
                 </div>
-            </div>
-            <div className="main">
-                <div className="buriedpanel">
-                    <div className="buriedpanel__buriedinfo">
+                <div className="main">
+                    <div className="buriedpanel">
+                        <div className="buriedpanel__buriedinfo">
                             <div className="buriedpanel__buriedinfo__names">
                                 <div className="firstname">{dead.firstName}</div>
                                 <div className="lastname">{dead.lastName}</div>
@@ -84,35 +84,35 @@ export default function DeadProfile() {
                                 <div className="candlecount"><img src={candle}></img>{dead.candleCount}</div>
                                 <div className="followers"><img src={heart}></img>5</div>
                             </div>
-                    </div>
-                    <div className="buriedpanel__buriedinfo__buttons">
+                        </div>
+                        <div className="buriedpanel__buriedinfo__buttons">
                             <button className="addcandle deadbtn" /*</div>onClick={incrementCandleCount}*/>zostaw świeczkę</button>
                             <button className="follow deadbtn">obserwuj</button>
-                    </div>
-                </div>
-                <div className="scrollablecontent">
-                    <div className="description">
-                        <div className="title">Opis</div>
-                        <div className="desc">{dead.description}</div>
-                        <hr className="break"></hr>
-                        <div className="buttoncontainer">
-                            <button className="addpost" onClick={clickAddPost}>dodaj post</button>
                         </div>
                     </div>
-                    {postShown && <AddPost/>}
-                    <div className="postslist">
-                        <div className="post">
-                            <div className="posttitle">
-                                <div>{posts[0].username}</div>
-                                <div className="postlastname">{posts[0].lastname}</div>
+                    <div className="scrollablecontent">
+                        <div className="description">
+                            <div className="title">Opis</div>
+                            <div className="desc">{dead.description}</div>
+                            <hr className="break"></hr>
+                            <div className="buttoncontainer">
+                                <button className="addpost" onClick={clickAddPost}>dodaj post</button>
                             </div>
-                            <div className="postcontent">
-                                {posts[0].content}
+                        </div>
+                        {postShown && <AddPost />}
+                        <div className="postslist">
+                            <div className="post">
+                                <div className="posttitle">
+                                    <div>{posts[0].username}</div>
+                                    <div className="postlastname">{posts[0].lastname}</div>
+                                </div>
+                                <div className="postcontent">
+                                    {posts[0].content}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </>)
 }
