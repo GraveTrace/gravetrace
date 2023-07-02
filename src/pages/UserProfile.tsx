@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import logo from "../assets/gravetracelogo.svg"
 import axios from "axios";
 import avatar from "../assets/avatar.png";
+import { Link } from "react-router-dom";
 
 export default function UserProfile() {
 
@@ -34,28 +36,38 @@ export default function UserProfile() {
     console.log(user)
 
     return (
-        <div>
-            <div>
-                <div>zdjęcie</div>
-                <div></div>
-                <div></div>
-            </div>
-            <div>
-                <div>Twoi bliscy</div>
-                <div>
-                    <div>{user.username}</div>
-                    <div>{user.lastname}</div>
+        <div className="login">
+            <div className="navbar">
+                <div className="navbar__logo">
+                    <Link to="/"><img src={logo} alt="GraveTrace" /></Link>
                 </div>
             </div>
-            <div>
-                <div>Obserwowani</div>
-                <div>
-                    <div><img src={avatar} /></div>
-                    <div>{observators[0].firstName}</div>
-                    <div>{observators[0].lastName}</div>
+            <div className="profilemain">
+                <div className="profiledata">
+                    <div className="userpanel">
+                        <div className="userphoto"><img src={avatar} /></div>
+                        <div className="userpanel__text">
+                            <div className="username">{user.username}</div>
+                            <div className="lastname">{user.lastname}</div>
+                        </div>
+                    </div>
+                    <div className="buriedpanel">
+                        <div className="buriedpanel__title">Twoi bliscy</div>
+                        <div className="buriedpanel__content">
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+                <div className="observatorpanel">
+                    <div className="observatorpanel__title">Obserwowani</div>
+                    <div className="observatorpanel__content">
+                        <div className="observatorphoto"><img src={avatar} /></div>
+                        <div className="firstname">{observators[0].firstName}</div>
+                        <div className="lastname">{observators[0].lastName}</div>
+                    </div>
                 </div>
             </div>
-
         </div>
     )
 }
